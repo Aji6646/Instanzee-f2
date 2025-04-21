@@ -25,4 +25,4 @@ A serverless ML-powered app to predict likes, comments, and sentiment for Instag
 git clone https://github.com/Aji6646/Insta_ML_Dashboard.git
 cd instagram-dashboard
 pip install -r requirements.txt
-streamlit run instagram_predictor_dashboard.py
+streamlit run dashboard.py
