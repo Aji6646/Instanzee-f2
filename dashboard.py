@@ -19,6 +19,11 @@ from openai import OpenAI
 import instaloader
 from instaloader import Post
 import re  
+
+AutoTokenizer.from_pretrained("twitter-roberta-base-sentiment", cache_dir="./model")
+AutoModelForSequenceClassification.from_pretrained("twitter-roberta-base-sentiment", cache_dir="./model")
+
+
 # from huggingface_hub import snapshot_download
 
 # snapshot_download(
@@ -66,12 +71,24 @@ st.sidebar.button("🔒 Logout", on_click=lambda: st.session_state.update({"logg
 #     except Exception as e:
 #         st.warning(f"⚠️ Couldn't load sentiment model: {e}")
 #         return None
+# @st.cache_resource
+# def load_sentiment_pipeline():
+#     try:
+#         return pipeline("sentiment-analysis", model="cardiffnlp/twitter-roberta-base-sentiment")
+#     except Exception as e:
+#         st.warning(f"Couldn't load sentiment model: {e}")
+#         return None
+
 @st.cache_resource
 def load_sentiment_pipeline():
     try:
-        return pipeline("sentiment-analysis", model="cardiffnlp/twitter-roberta-base-sentiment")
+        return pipeline(
+            "sentiment-analysis",
+            model="./models/twitter-roberta-base-sentiment",
+            tokenizer="./models/twitter-roberta-base-sentiment"
+        )
     except Exception as e:
-        st.warning(f"Couldn't load sentiment model: {e}")
+        st.warning(f"⚠️ Couldn't load sentiment model: {e}")
         return None
 
 
