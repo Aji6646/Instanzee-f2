@@ -71,14 +71,19 @@ st.sidebar.button("🔒 Logout", on_click=lambda: st.session_state.update({"logg
 @st.cache_resource
 def load_sentiment_pipeline():
     try:
-        return pipeline(
-            "sentiment-analysis",
-            model="./models/cardiffnlp-twitter",
-            tokenizer="./models/cardiffnlp-twitter"
-        )
+        model_path = "./models/cardiffnlp-twitter"
+        sentiment_pipe = pipeline("sentiment-analysis", model=model_path)
+        st.success("✅ Loaded local sentiment model.")
+        return sentiment_pipe
     except Exception as e:
-        st.warning(f"⚠️ Couldn't load local sentiment model: {e}")
-        return None
+        st.warning(f"⚠️ Couldn't load local sentiment model: {e}\nFalling back to small online model (if available).")
+        try:
+            sentiment_pipe = pipeline("sentiment-analysis", model="distilbert-base-uncased-finetuned-sst-2-english")
+            return sentiment_pipe
+        except Exception as e2:
+            st.error(f"❌ Could not initialize sentiment analysis: {e2}")
+            return None
+
 
 
 
