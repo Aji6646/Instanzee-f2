@@ -13,3 +13,4 @@ tqdm==4.66.2
 openai==1.23.0
 opencv-python-headless==4.9.0.80
 huggingface_hub==0.22.2
+hf_xet
