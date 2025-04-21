@@ -11,6 +11,5 @@ torch
 emoji
 tqdm
 openai
-opencv-python
 opencv-python-headless
 huggingface_hub
