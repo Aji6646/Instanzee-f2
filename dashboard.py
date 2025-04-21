@@ -20,8 +20,8 @@ import instaloader
 from instaloader import Post
 import re  
 
-AutoTokenizer.from_pretrained("twitter-roberta-base-sentiment", cache_dir="./model")
-AutoModelForSequenceClassification.from_pretrained("twitter-roberta-base-sentiment", cache_dir="./model")
+# AutoTokenizer.from_pretrained("twitter-roberta-base-sentiment", cache_dir="./model")
+# AutoModelForSequenceClassification.from_pretrained("twitter-roberta-base-sentiment", cache_dir="./model")
 
 
 # from huggingface_hub import snapshot_download
@@ -84,12 +84,13 @@ def load_sentiment_pipeline():
     try:
         return pipeline(
             "sentiment-analysis",
-            model="./models/twitter-roberta-base-sentiment",
-            tokenizer="./models/twitter-roberta-base-sentiment"
+            model="./models/cardiffnlp-twitter",
+            tokenizer="./models/cardiffnlp-twitter"
         )
     except Exception as e:
-        st.warning(f"⚠️ Couldn't load sentiment model: {e}")
+        st.warning(f"⚠️ Couldn't load local sentiment model: {e}")
         return None
+
 
 
 
